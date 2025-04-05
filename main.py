@@ -68,11 +68,11 @@ def login():
 def signin():
     return( render_template("sign-in.html") )
 
-@app.route("/recover-your-account")
+@app.route("/reset")
 def recover():
     return( render_template("recovery.html") )
 
-# API Endpoints #
+######################## API Endpoints ##################################
 
 # this is a simple test endpoint; use it as a base to create future endpoints too!
 @app.route(f"/api/{api_version}/test", methods=["GET", "POST"])
@@ -94,7 +94,7 @@ def test():
     except:
         return jsonify("The test endpoint failed, oh noes!")
 
-
+ # Login API call
 @app.route(f"/api/{api_version}/login", methods=["POST"])
 @limiter.limit("1/second") # Limits the endpoint to 1 request per second
 def logIn():
@@ -118,7 +118,24 @@ def logIn():
         return(jsonify("Internal error, please contact customer support for more information..."))
 
 
-
+# password API call #
+@app.route(f"/api/{api_version}/reset-password",methods=["POST"])
+@limiter.limit("1/second") # Limits the endpoint to 1 request per second
+def reset_password():
+    try:
+        request_data = request.get_json()
+        sent_data = {
+            "email": request_data.get("email"),
+        }
+        
+        if db_module.check_email_exists(sent_data["email"]): # only start the process of password reset IF the email exists already.
+            db_module.initialise_password_reset(database,sent_data["email"],EMAIL_MANAGER)
+            
+    except Exception as e:
+        print(f"Exception during password reset: {e}")
+        
+        
+@app.route(f"/api/{api_version}/send-",methods=["POST"])
 
 @app.route(f"/api/{api_version}/sign-up", methods=["POST"])
 @limiter.limit("1/second") # Limits the endpoint to 1 request per second
@@ -135,7 +152,7 @@ def signUp():
             return jsonify("Not a valid email...") """
         
         # note: all database-related functions must be in the db_module
-        is_using_same_mail = db_module.check_common_email(database,sent_data["email"])
+        is_using_same_mail = db_module.check_email_exists(database,sent_data["email"])
         
         if is_using_same_mail is None:
             return jsonify("Error with database connection, please try again later...")

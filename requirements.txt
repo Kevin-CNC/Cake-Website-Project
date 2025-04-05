@@ -1,7 +1,6 @@
 flask==2.1.0
-supabase
-python-dotenv
-requests
-Flask-Limiter
-validate-email-address
-pyDNS
+supabase==2.15.0
+python-dotenv==0.13.0
+requests==2.32.3
+Flask-Limiter==3.11.0
+validate-email-address==2.3.6

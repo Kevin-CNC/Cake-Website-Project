@@ -11,6 +11,8 @@ import os
 import dotenv
 
 from utils import encryption as encr_module
+from utils import email_manager
+
 from supabase import create_client, Client
 from dotenv import load_dotenv
 
@@ -38,7 +40,7 @@ def run():
     return database
 
 # Function to check if an email is already in use
-def check_common_email(database:Client,mail):
+def check_email_exists(database:Client,mail):
     try:
         if mail == None:
             return None
@@ -55,7 +57,7 @@ def check_common_email(database:Client,mail):
 
 
 # Function to try and log in user; returns a dictionary with user's unique ID and attempt status
-def login_user(database:Client,mail,password):
+def login_user(database:Client,mail:str,password:str):
     status_return = {
         "attempt valid":False, # Set to 'False' by default
         "unique user id":None,
@@ -78,7 +80,7 @@ def login_user(database:Client,mail,password):
         
 
 # Function to add a new user to the database
-def add_new_user(database:Client,mail,password,username):
+def add_new_user(database:Client,mail:str,password:str,username:str):
     try:
         if database == None:
             return("Error with database connection, please try again later...")
@@ -109,3 +111,24 @@ def add_new_user(database:Client,mail,password,username):
     except Exception as e: # Catch any errors and avoid crashing the server
         print(e)
         return None
+    
+    
+def initialise_password_reset(database:Client,targetMail:str,emailManager:email_manager):
+    generated_token = _generate_unique_id_()
+    
+    data = {
+        "token_id": str(encr_module(_generate_unique_id_())),
+        "created_at":str(datetime.datetime.now()),
+        "target_mail":str(encr_module.encrypt(targetMail))
+    }
+    
+    database.from_("reset_token").insert([data]).execute()
+    email_manager.send_email(targetMail,"PASSWORD RESET!",f"""
+                             You've requested a password reset for the account with email: {targetMail}.
+                             You have 10 minutes to reset the password before the link below expires.
+                             Link to reset password: "http://127.0.0.1:5000/reset_password_setup/?request-token:{generated_token}"
+                             
+                             If this was NOT you, please ignore this email.
+                             """)
+    
+    
