@@ -55,10 +55,16 @@ def make_session_permanent():
 
 @app.route("/")
 def index():
+    session["isAdminKey"] = None
+    
     if app.debug: 
         session["userId"] = None # Debugging purposes only, remove this line in production.
         
     return render_template("index.html") # Remember in Flask you ALWAYS return something to the user, else everything crashes.
+
+@app.route("/admin-login")
+def adminlog():
+    return( render_template("admin-login.html") )
 
 @app.route("/login")
 def login():
@@ -71,6 +77,17 @@ def signin():
 @app.route("/reset")
 def recover():
     return( render_template("recovery.html") )
+
+@app.route("/admin-panel")
+def showPanel():
+    try:
+        if session["isAdminKey"]:
+            return( render_template("adminstatus.html") )
+        else:
+            redirect("/")
+        
+    except Exception as e:
+        redirect("/")
 
 ######################## API Endpoints ##################################
 
@@ -135,7 +152,27 @@ def reset_password():
         print(f"Exception during password reset: {e}")
         
         
-@app.route(f"/api/{api_version}/send-",methods=["POST"])
+@app.route(f"/api/{api_version}/admin-auth",methods=["POST"])
+@limiter.limit("1/second") # Limits the endpoint to 1 request per second
+def adminAuth():
+    try:
+        req_data = request.get_json()
+        sent_data = {
+            "password": req_data.get("password"),
+            "username": req_data.get("username")
+        }
+        
+        if sent_data["username"] == "admin" and sent_data["password"] == "123cake":
+            session["isAdminKey"] = True
+            print("redirect")
+            return redirect( url_for("showPanel") )
+        else:
+            return flash("Invalid credentials...")
+        
+    except Exception as e:
+        print("error: ",e)
+        return()
+        
 
 @app.route(f"/api/{api_version}/sign-up", methods=["POST"])
 @limiter.limit("1/second") # Limits the endpoint to 1 request per second

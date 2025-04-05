@@ -7,9 +7,9 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='adminstyle.css') }}">
 </head>
 <body>
-    <div class="login-container">
+    <section class="login-container">
         <h2>Admin Login</h2>
-        <form action="/login" method="POST">
+        <form>
             <div>
                 <label for="username">Username</label>
                 <input type="text" id="username" name="username" required>
@@ -19,7 +19,7 @@
                 <input type="password" id="password" name="password" required>
             </div>
             <div>
-                <button type="submit">Login</button>
+                <button id="logBtn">Login</button>
             </div>
         </form>
         {% with messages = get_flashed_messages() %}
@@ -31,6 +31,7 @@
                 </ul>
             {% endif %}
         {% endwith %}
-    </div>
+    </section>
+    <script src={{url_for('static',filename="admin-signin.js")}}></script>
 </body>
 </html>
