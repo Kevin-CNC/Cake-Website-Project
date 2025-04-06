@@ -52,6 +52,7 @@ html::-webkit-scrollbar-thumb{
     position: fixed;
     padding: 1.4rem 7%;
     z-index: 999;
+    margin-bottom: 5em;
 
 }
 
@@ -340,3 +341,237 @@ section{
         font-size: 50%;
     }
 }
+
+
+
+
+
+
+/*reviews section*/
+
+.reviews {
+    padding: 100px 20px 40px; 
+    width: 100%;
+    text-align: center;
+    background: rgb(249,176,211);
+    background: linear-gradient(90deg, rgba(249,176,211,1) 15%, rgba(240,126,151,1) 50%, rgba(249,176,211,1) 84%);
+    margin: auto;
+  }
+  
+
+  .reviews h2 {
+    color: var(--black);
+    font-size: 50px;
+    margin-bottom: 20px;
+  }
+
+  .review {
+    background-color: var(--love);
+    border: 1px solid var(--black);
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 20px;
+    text-align: left;
+    box-shadow: 2px 2px 8px var(--black);
+      
+
+  }
+
+  .review:hover {
+    transform: scale(1.01);
+    transition: 0.3s ease;
+    background-color: var(--lavender);
+  }
+  
+
+  .review h3 {
+    font-size: 1.2rem;
+    color: var(--black);
+  }
+
+  .review p {
+    margin-top: 8px;
+  }
+
+/* submit review area */
+.submit-review {
+    background: var(--love);
+    padding: 40px 20px;
+    width: 100%;
+    border: 1px solid var(--black);
+    box-shadow: 2px 2px 12px var(--black);
+    border-radius: 15px;
+  }
+
+.submit-review h2 {
+    color: var(--black);
+    
+}
+
+.submit-review button {
+    background-color: var(--black);
+    color: var(--white);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    margin-top: 10px;
+    
+}
+
+.submit-review button:hover {
+    background-color: var(--peach);
+    color: var(--black);
+    transition: 0.3s ease;
+}
+
+
+/* products area */
+
+.products {
+    background: rgb(249,176,211);
+    background: linear-gradient(90deg, rgba(249,176,211,1) 15%, rgba(240,126,151,1) 50%, rgba(249,176,211,1) 84%);
+    padding: 40px 20px;
+    text-align: center;
+
+  }
+  
+  .products h2 {
+    font-size: 50px;
+    color: var(--black);
+    margin-bottom: 30px;
+  }
+  
+  .product-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+  }
+  
+  .product-item {
+    background: var(--love);
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: var(--box-shadow);
+    text-align: center;
+    transition: transform 0.3s ease;
+  }
+  
+  .product-item:hover {
+    transform: scale(1.03);
+    background: var(--lavender);
+  }
+  
+  .product-item img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+  }
+  
+  .product-item h3 {
+    margin-top: 15px;
+    font-size: 1.5rem;
+    color: var(--black);
+  }
+  
+  .product-item p {
+    font-size: 1rem;
+    margin: 10px 0;
+    color: var(--black);
+  }
+  
+  .product-item .price {
+    font-weight: bold;
+    font-size: 1.2rem;
+    display: block;
+    margin: 10px 0;
+  }
+  
+  .product-item .btn {
+    padding: 10px 20px;
+    background-color: var(--brown);
+    color: var(--white);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s ease;
+  }
+  
+  .product-item .btn:hover {
+    background-color: var(--black);
+  }
+  
+  .products {
+    padding-top: 100px; 
+  }
+  
+
+  /*contact area */
+
+  .contact {
+    padding: 120px 20px 60px;
+    background: rgb(249,176,211);
+    background: linear-gradient(90deg, rgba(249,176,211,1) 15%, rgba(240,126,151,1) 50%, rgba(249,176,211,1) 84%);
+    text-align: center;
+
+  }
+  
+  .contact h2 {
+    font-size: 50px;
+    color: var(--black);
+    margin-bottom: 10px;
+  }
+  
+  .contact p {
+    color: var(--black);
+    margin-bottom: 30px;
+  }
+  
+  .contact-form {
+    max-width: 600px;
+    margin: 0 auto;
+    background: var(--white);
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: var(--box-shadow);
+    text-align: left;
+  }
+  
+  .contact-form label {
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: var(--black);
+  }
+  
+  .contact-form input,
+  .contact-form textarea {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid var(--black);
+    background-color: var(--peach);
+    color: var(--black);
+    font-size: 1rem;
+  }
+  
+  .contact-form button {
+    margin-top: 20px;
+    padding: 12px 20px;
+    background-color: var(--lavender);
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    color: var(--black);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .contact-form button:hover {
+    background-color: var(--lynx);
+  }
+  

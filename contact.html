@@ -11,7 +11,8 @@
     <!-- cdn icon link  -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <!-- custom css file  -->
-    <link rel="stylesheet" href={{url_for('static',filename="style.css")}}>      
+    <!-- <link rel="stylesheet" href={{url_for('static',filename="style.css")}}>      -->
+    <link rel="stylesheet" href='static/style.css'>
 </head>
 <body>
     <!-- Header sections -->
@@ -23,9 +24,9 @@
 
         <nav class="navbar">
             <a href="#home">home</a>
-            <a href="#product">product</a>
-            <a href="#review">review</a>
-            <a href="#contact">contact</a>
+            <a href="product.html">product</a>
+            <a href="reviews.html">review</a>
+            <a href="contact.html">contact</a>
             <a href="/login">Login</a>
         </nav>
 
@@ -40,18 +41,28 @@
     </header>
     <!-- header section end here  -->
 
-    <!-- home section start here  -->
-    <main class="home" id="home">
-        <div class="homeContent">
-            <h2>Delicious Cake for all </h2>
-            <p>Need a quick sweet treat, cheap, delicious and custom made? Look no further</p>
-            <div class="home-btn">
-                <a href="/"><button>see more</button></a>
-            </div>
-        </div>
-    </main>
-    <!-- home section end here  -->
-    
+
+  <!-- contact section -->
+  <section class="contact">
+    <h2>contact us</h2>
+    <p>we would love to hear from you!</p>
+
+    <form class="contact-form">
+      <label for="name">your name</label>
+      <input type="text" id="name" placeholder="Name" required />
+
+      <label for="email">your email</label>
+      <input type="email" id="email" placeholder="Email" required />
+
+      <label for="message">your message</label>
+      <textarea id="message" rows="5" placeholder="Write your message here" required></textarea>
+
+      <button type="submit">send message</button>
+    </form>
+  </section>
+
+
+
     <!-- footer section start here  -->
     <footer class="footer" id="contact">
         <div class="box-container">
@@ -65,10 +76,10 @@
             </div>
             <div class="box">
                 <h3>Quick link</h3>
-                <a href="#"> <i class="fas fa-arrow-right"></i>Home</a>
-                <a href="#"> <i class="fas fa-arrow-right"></i>product</a>
-                <a href="#"> <i class="fas fa-arrow-right"></i>review</a>
-                <a href="#"> <i class="fas fa-arrow-right"></i>contact</a>
+                <a href="index.html"> <i class="fas fa-arrow-right"></i>Home</a>
+                <a href="product.html"> <i class="fas fa-arrow-right"></i>product</a>
+                <a href="reviews.html"> <i class="fas fa-arrow-right"></i>reviews</a>
+                <a href="contact.html"> <i class="fas fa-arrow-right"></i>contact</a>
 
             </div>
             <div class="box">
@@ -99,9 +110,5 @@
         </div>
     </footer>
 
-    <!-- swiper js link  -->
-    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-    <!-- custom js file  -->
-    <script src={{url_for('static',filename="index.js")}}></script>
 </body>
 </html>
