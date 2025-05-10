@@ -4,4 +4,3 @@ python-dotenv
 requests
 Flask-Limiter
 validate-email-address
-pyDNS

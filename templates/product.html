@@ -11,32 +11,27 @@
     <!-- cdn icon link  -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <!-- custom css file  -->
-    <!-- <link rel="stylesheet" href={{url_for('static',filename="style.css")}}>      -->
-    <link rel="stylesheet" href='static/style.css'>
+    <link rel="stylesheet" href={{url_for('static',filename="style.css")}}> 
 </head>
 <body>
     <!-- Header sections -->
     <header class="header">
         <div class="logoContent">
-            <a href="#" class="logo"><img src="images/logo-placeholder-image.png"></a>
+            <a href="#" class="logo"><img alt="logo" src="images/logo-placeholder-image.png"></a>
             <h1 class="logoName"> Cake Site </h1>
         </div>
 
         <nav class="navbar">
-            <a href="index.html">home</a>
+            <a href="/">home</a>
             <a href="product.html">product</a>
-            <a href="reviews.html">review</a>
-            <a href="contact.html">contact</a>
+            <a href="/reviews">review</a>
+            <a href="/contact-us">contact</a>
             <a href="/login">Login</a>
         </nav>
 
         <div class="icon">
             <i class="fas fa-search" id="search"></i>
             <i class="fas fa-bars" id="menu-bar"></i>
-        </div>
-
-        <div class="search">
-            <input type="search" placeholder="search...">
         </div>
     </header>
     <!-- header section end here  -->

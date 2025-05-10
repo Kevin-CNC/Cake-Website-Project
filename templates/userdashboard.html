@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sweet Cake - Dashboard</title>
+        
+    <!-- swiper link  -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <!-- cdn icon link  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <!-- custom css file  -->
+    <link rel="stylesheet" href={{url_for('static',filename="style.css")}}>
+    <link rel="stylesheet" href={{url_for('static',filename="userboard.css")}}>
+</head>
+<body>
+    <!-- Header sections -->
+    <header class="header">
+        <div class="logoContent">
+            <h1 class="logoName"> Sweet Cake! </h1>
+        </div>
+
+        <nav class="navbar">
+            <a href="/">home</a>
+            <a href="product.html">product</a>
+            <a href="/reviews">review</a>
+            <a href="/contact-us">contact</a>
+        </nav>
+
+        <div class="icon">
+            <i class="fas fa-bars" id="menu-bar"></i>
+        </div>
+    </header>
+    <!-- header section end here  -->
+
+    <!-- dashboard section starts here -->
+    <main>
+        <section class="dashboard" id="dashboard">
+            <div class="dashboard-header">
+                <h2 class="dashboard-title">{{user_data.username}}'s Dashboard</h2>
+                <a href="/create-order"><button class="create-order-btn"><i class="fas fa-plus"></i> Create New Order</button></a>
+            </div>
+            
+            <div class="dashboard-content">
+                <div class="orders-section">
+                    <h3 class="section-title">My Orders</h3>
+                    
+                    <div class="order-list">
+                        <!-- Order display list; display orders within the  -->
+                         {% if user_data.orders is not none %}
+                            {% if user_data and user_data.orders|length > 0 %}
+                                {% for order in user_data.orders %}
+                                    <div class="order-card">
+                                        <div class="order-info">
+                                            <span class="order-id">#{{ order.id }}</span>
+                                            <span class="order-date">{{ order.created_at }}</span>
+                                        </div>
+                                        
+                                        {% if order.order_status == 'pending' %}
+                                            <span class="order-status status-pending">Pending</span>
+                                        {% elif order.order_status == 'processing' %}
+                                            <span class="order-status status-processing">Processing</span>
+                                        {% elif order.order_status == 'completed' %}
+                                            <span class="order-status status-completed">Completed</span>
+                                        {% elif order.order_status == 'delivered' %}
+                                            <span class="order-status status-delivered">Delivered</span>
+                                        {% elif order.order_status == 'cancelled' %}
+                                            <span class="order-status status-cancelled">Cancelled</span>
+                                        {% else %}
+                                            <span class="order-status status-pending">{{ order.order_status }}</span>
+                                        {% endif %}
+                                        
+                                        <div class="order-actions">
+                                            <a href="/view-order/{{ order.id }}" class="action-btn" title="View Order"><i class="fas fa-eye"></i></a>
+                                            {% if order.order_status == 'pending' %}
+                                                <a href="/edit-order/{{ order.id }}" class="action-btn" title="Edit Order"><i class="fas fa-edit"></i></a>
+                                            {% endif %}
+                                            {% if order.order_status == 'completed' %}
+                                                <a href="/reorder/{{ order.id }}" class="action-btn" title="Reorder"><i class="fas fa-redo"></i></a>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            {% else %}
+                                <div class="empty-orders">
+                                    <i class="fas fa-birthday-cake" style="font-size: 3rem; color: #ddd; margin-bottom: 1rem;"></i>
+                                    <p>You don't have any orders yet.</p>
+                                    <p>Click the "Create New Order" button to place your first custom cake order!</p>
+                                </div>
+                            {% endif %}
+                            {% else %}
+                            <div class="empty-orders">
+                                <i class="fas fa-birthday-cake" style="font-size: 3rem; color: #ddd; margin-bottom: 1rem;"></i>
+                                <p>You don't have any orders yet.</p>
+                                <p>Click the "Create New Order" button to place your first custom cake order!</p>
+                            </div>
+                         {% endif %}
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <!-- dashboard section ends here -->
+    
+    <!-- footer section start here  -->
+    <footer class="footer" id="contact">
+        <div class="box-container">
+            <div class="mainBox">
+                <div class="content">
+                    <h1 class="logoName"> Sweet Cake </h1>
+                </div>
+
+                <p>Thank you for visting!</p>
+
+            </div>
+            <div class="box">
+                <h3>Quick link</h3>
+                <a href="/"> <i class="fas fa-arrow-right"></i>Home</a>
+                <a href="/products"> <i class="fas fa-arrow-right"></i>product</a>
+                <a href="/reviews"> <i class="fas fa-arrow-right"></i>reviews</a>
+                <a href="/contact-us"> <i class="fas fa-arrow-right"></i>contact</a>
+
+            </div>
+            <div class="box">
+                <h3>Extra link</h3>
+                <a href="/account"> <i class="fas fa-arrow-right"></i>Account info</a>
+                <a href="/orders"> <i class="fas fa-arrow-right"></i>order item</a>
+                <a href="/privacy-policy"> <i class="fas fa-arrow-right"></i>privacy policy</a>
+                <a href="/payment-methods"> <i class="fas fa-arrow-right"></i>payment method</a>
+                <a href="/services"> <i class="fas fa-arrow-right"></i>services</a>
+            </div>
+            <div class="box">
+                <h3>Contact Info</h3>
+                <a href="tel:+99000000000"> <i class="fas fa-phone"></i>+99 000000 00000</a>
+                <a href="mailto:cake@gmail.com"> <i class="fas fa-envelope"></i>cake@gmail.com</a>
+
+            </div>
+
+        </div>
+        <div class="share">
+            <a href="#" class="fab fa-facebook-f"></a>
+            <a href="#" class="fab fa-twitter"></a>
+            <a href="#" class="fab fa-instagram"></a>
+            <a href="#" class="fab fa-linkedin"></a>
+            <a href="#" class="fab fa-pinterest"></a>
+        </div>
+        <div class="credit">
+            <span>Thank you for visiting</span>
+        </div>
+    </footer>
+
+    <!-- swiper js link  -->
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+</body>
+</html>

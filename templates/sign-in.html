@@ -4,12 +4,35 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login Form</title>
+
+  <link rel="stylesheet" href={{url_for('static',filename="style.css")}}>
   <link rel="stylesheet" href={{url_for('static',filename="sheet.css")}}>
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 <body>
+  <!-- Header sections -->
+  <header class="header">
+    <div class="logoContent">
+        <a href="#" class="logo"><img alt="logo" src="images/logo-placeholder-image.png"></a>
+        <h1 class="logoName"> Cake Site </h1>
+    </div>
+
+    <nav class="navbar">
+        <a href="/">home</a>
+        <a href="product.html">product</a>
+        <a href="/reviews">review</a>
+        <a href="/contact-us">contact</a>
+        <a href="/login">Login</a>
+    </nav>
+
+    <div class="icon">
+        <i class="fas fa-search" id="search"></i>
+        <i class="fas fa-bars" id="menu-bar"></i>
+    </div>
+  </header>
+
   <main class="wrapper">
-    <form action="">
+    <form onsubmit="return false;">
       <h1>Register here!</h1>
       <div class="input-box">
         <input type="email" placeholder="Email" id="email" required>
@@ -22,7 +45,7 @@
         <input type="password" placeholder="Password" id="password" required>
         <i class='bx bxs-lock-alt' ></i>
       </div>
-      <button type="submit" class="btn" id="regBtn">Register</button>
+      <button class="btn" id="regBtn">Register</button>
 
       <div class="register-link">
         <p>Already got an account? <a href="/login">Log in</a></p>

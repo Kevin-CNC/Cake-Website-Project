@@ -196,13 +196,20 @@ section{
     background: url(../static/images/pink.jpg) no-repeat;
     background-size: cover;
     background-position: center center;
+    width: 100%;
+    margin: 0;
+    padding: 2rem 0;
 }
+
 .footer .box-container{
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
     gap: 1.5rem;
-    padding: 2rem 1rem;
+    padding: 2rem 7%;
+    width: 100%;
+    max-width: 100%;
 }
+
 .footer .box-container .mainBox .content{
     display: flex;
     align-items: center;
@@ -239,6 +246,7 @@ section{
 .footer .share{
     padding: 1rem 0;
     text-align: center;
+    width: 100%;
 }
 .footer .share a{
     height: 4rem;
@@ -261,9 +269,8 @@ section{
     padding-bottom: 2rem;
     color: var(--black);
     text-align: center;
-    
+    width: 100%;
 }
-
 
 
 
@@ -574,4 +581,3 @@ section{
   .contact-form button:hover {
     background-color: var(--lynx);
   }
-  

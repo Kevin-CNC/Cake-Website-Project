@@ -1,24 +1,22 @@
 const apiver = 1;
 
-let login_button = document.getElementById('regBtn');
+let login_button = document.getElementById('loginB');
 login_button.addEventListener("click",function(){
   console.log("fired");
 
-  let email_value = document.getElementById("email").value;
   let password_value = document.getElementById("password").value;
-  let username_value = document.getElementById("user").value;
+  let email_value = document.getElementById("email").value;
 
-  if( email_value == "" || password_value == "" || username_value == "" ){
+  if( password_value == "" || email_value == "" ){
     console.log("Not valid...")
     return;
   }
 
-  fetch(`/api/v${apiver}/sign-up`, {
+  fetch(`/api/v${apiver}/login`, {
     method: "POST",
     body: JSON.stringify({
-      email: email_value,
       password: password_value,
-      username: username_value,
+      email: email_value,
     }),
     headers: {
       "Content-type": "application/json; charset=UTF-8"

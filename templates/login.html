@@ -1,31 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login Form</title>
-  <link rel="stylesheet" href={{url_for('static',filename="sheet.css")}}>
-  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-</head>
-<body>
-  <main class="wrapper">
-    <form action="">
-      <h1>Login</h1>
-      <div class="input-box">
-        <input type="text" name="user identification" placeholder="Email / Username" required>
-        <i class='bx bxs-user'></i>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Form</title>
+    
+    <link rel="stylesheet" href={{url_for('static',filename="style.css")}}>
+    <link rel="stylesheet" href={{url_for('static',filename="sheet.css")}}>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  </head>
+  <body>
+    <!-- Header sections -->
+    <header class="header">
+      <div class="logoContent">
+          <a href="#" class="logo"><img alt="logo" src="images/logo-placeholder-image.png"></a>
+          <h1 class="logoName"> Cake Site </h1>
       </div>
-      <div class="input-box">
-        <input type="password" name="password" placeholder="Password" required>
+
+      <nav class="navbar">
+          <a href="/">home</a>
+          <a href="product.html">product</a>
+          <a href="/reviews">review</a>
+          <a href="/contact-us">contact</a>
+          <a href="/login">Login</a>
+      </nav>
+
+      <div class="icon">
+          <i class="fas fa-search" id="search"></i>
+          <i class="fas fa-bars" id="menu-bar"></i>
       </div>
-      <div class="remember-forgot">
-        <a href="/recover-your-account">Forgot Password</a>
-      </div>
-      <button type="submit" class="btn" id="loginB">Login</button>
-      <div class="register-link">
-        <p>Dont have an account? <a href="/signin">Register</a></p>
-      </div>
-    </form>
-  </main>
-</body>
+    </header>
+
+    <main class="wrapper">
+      <form onsubmit="return false;">
+        <h1>Login</h1>
+        <div class="input-box">
+          <input type="text" name="user identification" id="email" placeholder="Email" required>
+          <i class='bx bxs-user'></i>
+        </div>
+        <div class="input-box">
+          <input type="password" name="password" id="password" placeholder="Password" required>
+        </div>
+        <div class="remember-forgot">
+          <a href="/recover-your-account">Forgot Password</a>
+        </div>
+        <button class="btn" id="loginB">Login</button>
+        <div class="register-link">
+          <p>Dont have an account? <a href="/signin">Register</a></p>
+        </div>
+      </form>
+    </main>
+  </body>
+
+  <script src={{url_for('static',filename="login.js")}}></script>
 </html>

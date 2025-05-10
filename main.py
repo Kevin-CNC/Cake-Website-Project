@@ -72,6 +72,33 @@ def signin():
 def recover():
     return( render_template("recovery.html") )
 
+@app.route("/reviews")
+def reviews():
+    return( render_template("reviews.html") )
+
+
+@app.route("/userboard")
+def userboard():
+    try:
+        if session.get('userId') == None:
+            return redirect(url_for("index"))
+        
+        if session.get('cachedData') == None:
+            session["cachedData"] = db_module.get_user_order_data(database,session["userId"])
+            
+            #if session.get('cachedData') == None:
+            #    return redirect(url_for("index"))
+            print("session['userId']: ",session["userId"])
+            print("session['cachedData']: ",session["cachedData"])
+        
+        return render_template("userdashboard.html", user_data=session["cachedData"])
+    
+    except Exception as e:
+        print("Error at userboard: ",e)
+        return redirect(url_for("index"))
+    
+    
+
 # API Endpoints #
 
 # this is a simple test endpoint; use it as a base to create future endpoints too!
@@ -96,7 +123,7 @@ def test():
 
 
 @app.route(f"/api/{api_version}/login", methods=["POST"])
-@limiter.limit("1/second") # Limits the endpoint to 1 request per second
+@limiter.limit("100/second") # Limits the endpoint to 100 requests per second
 def logIn():
     try:
         request_data = request.get_json()
@@ -108,9 +135,9 @@ def logIn():
         login_result = db_module.login_user(database,sent_data["email"],sent_data["password"])
         
         if login_result["attempt valid"]:
-            session["userId"] = login_result["unique user id"]
+            session["userId"] = login_result["unique user id"] # caches the user's id in the session
             
-            return redirect(url_for("userboard",userid=login_result["unique user id"]))
+            return jsonify({'url_target':url_for("userboard")})
         else:
             return jsonify("Invalid login credentials, try again!")
         
@@ -119,31 +146,27 @@ def logIn():
 
 
 
-
 @app.route(f"/api/{api_version}/sign-up", methods=["POST"])
-@limiter.limit("1/second") # Limits the endpoint to 1 request per second
+@limiter.limit("100/second") # Limits the endpoint to 100 requests per second
 def signUp():
-    try:
+    try:    
         req_data = request.get_json()
         sent_data = {
             "email": req_data.get("email"),
             "password": req_data.get("password"),
             "username": req_data.get("username")
         }
-        
-        """ if not(validate_email(sent_data["email"], verify = True)):
-            return jsonify("Not a valid email...") """
-        
+   
         # note: all database-related functions must be in the db_module
         is_using_same_mail = db_module.check_common_email(database,sent_data["email"])
+        print("is_using_same_mail: ",is_using_same_mail)
         
         if is_using_same_mail is None:
             return jsonify("Error with database connection, please try again later...")
         elif is_using_same_mail == False:
 
 
-            generated_id = db_module.add_new_user(database,sent_data["email"],sent_data["password"],sent_data["username"])
-            print("Done!")                
+            generated_id = db_module.add_new_user(database,sent_data["email"],sent_data["password"],sent_data["username"])               
             session["userId"] = generated_id # caches the user's id in the session
             
             try:
@@ -152,15 +175,15 @@ def signUp():
                 print("Error with sending email to customer.")
                 print("Error: ", e)
             finally:
-                if app.debug:
-                    return jsonify("Success message") # DEBUG OUTPUT WHEN RUNNING THE APP ON 'debug' MODE
-                else:
-                    return redirect(url_for("userboard"),userid=generated_id)
+                print("Redirecting to userboard!")
+                return jsonify({'url_target':url_for("userboard")})
+                #return redirect(url_for("userboard"))
                 
         else:
-            return jsonify("Email already in use!")
+            return jsonify({'url_target':url_for("index")})
     except Exception as e:
         print("exception: ",e)
+
 
 if __name__ == "__main__":
     Thread(target=_connect_database).start()
